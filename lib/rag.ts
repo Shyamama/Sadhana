@@ -10,6 +10,15 @@ export type RetrievedChunk = {
   score: number;
 };
 
+const parseEmbedding = (raw: string): number[] => {
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? (parsed as number[]) : [];
+  } catch {
+    return [];
+  }
+};
+
 export const retrieveChunks = async (query: string, topK = 4): Promise<RetrievedChunk[]> => {
   const queryEmbedding = embedText(query);
   const chunks = await prisma.sourceChunk.findMany({
@@ -17,7 +26,7 @@ export const retrieveChunks = async (query: string, topK = 4): Promise<Retrieved
   });
 
   const scored = chunks.map((chunk) => {
-    const embedding = chunk.embedding as number[];
+    const embedding = parseEmbedding(chunk.embedding);
     const score = cosineSimilarity(queryEmbedding, embedding);
     return {
       id: chunk.id,

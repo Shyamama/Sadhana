@@ -13,46 +13,33 @@ const slugify = (value: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)+/g, "");
 
-const listTextFiles = async (dir: string): Promise<string[]> => {
-  const entries = await fs.readdir(dir, { withFileTypes: true });
-  const files: string[] = [];
-  for (const entry of entries) {
-    const resolved = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      files.push(...(await listTextFiles(resolved)));
-    } else if (entry.isFile() && entry.name.endsWith(".txt")) {
-      files.push(resolved);
-    }
-  }
-  return files;
-};
-
 const ingest = async () => {
-  const files = await listTextFiles(SOURCES_DIR);
+  const files = await fs.readdir(SOURCES_DIR);
+  const textFiles = files.filter((file) => file.endsWith(".txt"));
 
-  if (files.length === 0) {
+  if (textFiles.length === 0) {
     throw new Error("No source files found in sources_seed.");
   }
 
   await prisma.sourceChunk.deleteMany();
   await prisma.source.deleteMany();
 
-  for (const fullPath of files) {
+  for (const file of textFiles) {
+    const fullPath = path.join(SOURCES_DIR, file);
     const content = await fs.readFile(fullPath, "utf-8");
-    const filename = path.basename(fullPath);
-    const title = filename
+    const title = file
       .replace(/_/g, " ")
       .replace(/\.txt$/, "")
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
-    const slug = slugify(filename);
+    const slug = slugify(file);
 
     const source = await prisma.source.create({
       data: {
         title,
         slug,
-        path: path.relative(process.cwd(), fullPath),
+        path: `sources_seed/${file}`,
         ingestedAt: new Date()
       }
     });
@@ -67,7 +54,7 @@ const ingest = async () => {
           start: chunk.start,
           end: chunk.end,
           content: chunk.content,
-          embedding: embedText(chunk.content)
+          embedding: JSON.stringify(embedText(chunk.content))
         }
       });
     }

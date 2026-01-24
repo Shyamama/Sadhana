@@ -68,6 +68,12 @@ export default function AskPage() {
       })
     });
 
+    if (!response.ok) {
+      console.error("Failed to ask Pandit Mode:", response.status);
+      setAnswer("Unable to reach Pandit Mode right now. Check the server logs.");
+      setLoading(false);
+      return;
+    }
     const data = await response.json();
     setAnswer(data.answer ?? data.error ?? "No response.");
     setCitations(data.citations ?? []);

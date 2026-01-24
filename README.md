@@ -21,7 +21,7 @@ A demoable Next.js 14 prototype for Sādhanā featuring Pandit Mode (RAG with ci
    ```powershell
    npm install
    ```
-5. (Optional) Fetch full texts from Wikisource (multiple translations per text):
+5. (Optional) Fetch full texts from Wikisource:
    ```powershell
    npm run fetch:sources
    ```
@@ -48,7 +48,7 @@ The app will be available at http://localhost:3000.
 ## Scripts
 - `npm run dev`: Start Next.js dev server.
 - `npm run fetch:sources`: Download Wikisource translations listed in `/sources_seed/sources.json`.
-- `npm run ingest`: Chunk, embed, and ingest sources from `/sources_seed` (recursively).
+- `npm run ingest`: Chunk, embed, and ingest sources from `/sources_seed`.
 - `npm run prisma:migrate`: Run Prisma migrations.
 
 ## Notes
