@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Source {
+  id         String        @id @default(cuid())
+  title      String
+  slug       String        @unique
+  path       String
+  ingestedAt DateTime
+  chunks     SourceChunk[]
+}
+
+model SourceChunk {
+  id        String   @id @default(cuid())
+  sourceId  String
+  order     Int
+  start     Int
+  end       Int
+  content   String
+  embedding Json
+
+  source    Source   @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@index([sourceId, order])
+}
+
+model JournalEntry {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  mood      String?
+  content   String
+  summary   String?
+}
