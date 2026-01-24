@@ -23,7 +23,7 @@ model SourceChunk {
   start     Int
   end       Int
   content   String
-  embedding Json
+  embedding String
 
   source    Source   @relation(fields: [sourceId], references: [id], onDelete: Cascade)
 

@@ -54,7 +54,7 @@ const ingest = async () => {
           start: chunk.start,
           end: chunk.end,
           content: chunk.content,
-          embedding: embedText(chunk.content)
+          embedding: JSON.stringify(embedText(chunk.content))
         }
       });
     }

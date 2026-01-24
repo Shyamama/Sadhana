@@ -24,6 +24,11 @@ export default function JournalPage() {
 
   const loadEntries = async () => {
     const response = await fetch("/api/journal");
+    if (!response.ok) {
+      console.error("Failed to load journal entries:", response.status);
+      setEntries([]);
+      return;
+    }
     const data = await response.json();
     setEntries(data.entries ?? []);
   };
@@ -34,7 +39,7 @@ export default function JournalPage() {
 
   const submitEntry = async () => {
     if (!content.trim()) return;
-    await fetch("/api/journal", {
+    const response = await fetch("/api/journal", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -43,6 +48,10 @@ export default function JournalPage() {
         summary: summary || null
       })
     });
+    if (!response.ok) {
+      console.error("Failed to save journal entry:", response.status);
+      return;
+    }
     setContent("");
     setMood("");
     setSummary("");
