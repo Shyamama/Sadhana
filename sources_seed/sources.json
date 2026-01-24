@@ -1,0 +1,38 @@
+[
+  {
+    "id": "bhagavad-gita-arnold",
+    "title": "Bhagavad Gita — Edwin Arnold",
+    "url": "https://en.wikisource.org/wiki/The_Bhagavad_Gita_(Arnold)?action=raw",
+    "filename": "bhagavad_gita_arnold.txt"
+  },
+  {
+    "id": "bhagavad-gita-telang",
+    "title": "Bhagavad Gita — Kashinath Trimbak Telang",
+    "url": "https://en.wikisource.org/wiki/Bhagavad_Gita_(Telang)?action=raw",
+    "filename": "bhagavad_gita_telang.txt"
+  },
+  {
+    "id": "isha-upanishad-max-muller",
+    "title": "Isha Upanishad — Max Müller",
+    "url": "https://en.wikisource.org/wiki/Isha_Upanishad_(Max_M%C3%BCller)?action=raw",
+    "filename": "isha_upanishad_max_muller.txt"
+  },
+  {
+    "id": "isha-upanishad-hume",
+    "title": "Isha Upanishad — Robert Ernest Hume",
+    "url": "https://en.wikisource.org/wiki/Isha_Upanishad_(Hume)?action=raw",
+    "filename": "isha_upanishad_hume.txt"
+  },
+  {
+    "id": "yoga-sutras-woods",
+    "title": "Yoga Sutras of Patanjali — James Haughton Woods",
+    "url": "https://en.wikisource.org/wiki/The_Yoga_S%C5%ABtras_of_Pata%C3%B1jali_(Woods)?action=raw",
+    "filename": "yoga_sutras_woods.txt"
+  },
+  {
+    "id": "yoga-sutras-vivekananda",
+    "title": "Raja Yoga (Yoga Sutras) — Swami Vivekananda",
+    "url": "https://en.wikisource.org/wiki/Raja_Yoga?section=1&action=raw",
+    "filename": "yoga_sutras_vivekananda.txt"
+  }
+]
